@@ -1,1 +1,45 @@
-<head><script defer src="main.js"></script></head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+<script defer src="main.js"></script></head>
+
+<body>
+    <header>ToDo App</header>
+    <div class="description">A place to organize your life... and not only. </div>
+    <div class="side-bar">
+        <p>Search</p>
+        <p>Inbox</p>
+        <p>Categories</p>
+    </div>
+    <div class="content">
+        <div class="form">
+            <input type="text" placeholder="Fix the windows tomorrow at 3pm (your title)" class="task-title" />
+            <textarea name="textarea" id="textarea" placeholder="Description"></textarea>
+            <div class="informations">
+                <div class="priority-checkbox">
+                    <label for="priority">Priority</label>
+                    <input type="checkbox" id="priority" name="priority">
+                </div>
+                <div class="date-checkbox"><label for="date">📅 Untill:</label>
+                    <input type="date" id="date" name="date">
+                </div>
+                <button id="submit-button">Submit</button>
+            </div>
+        </div>
+
+        <div class="book0" id="books">
+            <p>Fix the windows tomorrow at 3pm</p>
+            <button>Expand</button>
+        </div>
+
+        
+         
+
+    </div>
+</body>
+
+</html>

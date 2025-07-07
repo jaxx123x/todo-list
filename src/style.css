@@ -25,6 +25,7 @@ header {
     place-items: center;
     border-bottom: 1px solid #696565; 
     border-right: 1px solid #c6c2c2;
+    height: 9vh;
 }
 
 .description {
@@ -40,6 +41,7 @@ header {
     font-variant: normal;
     text-transform: none;
     border-bottom: 1px solid #696565;   
+    height: 9vh;
 }
 
 .side-bar {
@@ -47,6 +49,7 @@ header {
     grid-template-rows: repeat(10, 1fr);
     justify-items: center;
     border-right: 1px solid #c6c2c2;
+    height: 91vh;
 }
 
 .content {
@@ -54,9 +57,10 @@ header {
     flex-direction: column;
     align-items: center;
     padding: 15px;
+    gap: 15px;
 }
 
-.form {
+.form, #books {
     border: 1px solid #696565;  
   border-radius: 8px;
   padding: 16px;
@@ -107,6 +111,8 @@ button {
   box-shadow: rgb(201, 46, 70) 0px 1px 0px 0px;
   color: hsl(0, 0%, 100%);
   cursor: pointer;
+  height: 20px;
+  width: 70px;
 }
 
 button:hover {
@@ -119,4 +125,19 @@ button:active {
   box-shadow: rgb(201, 46, 70) 0px 0px 0px 0px;
   transform: translateY(5px);
   transition: 200ms;
+}
+
+#books {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#books p {
+  justify-self: start;
+  align-self: center;
+}
+
+#books button {
+  justify-self: end;
+  align-self: center;
 }
