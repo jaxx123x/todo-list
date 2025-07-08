@@ -11,14 +11,14 @@
     <header>ToDo App</header>
     <div class="description">A place to organize your life... and not only. </div>
     <div class="side-bar">
-        <p>Search</p>
-        <p>Inbox</p>
-        <p>Categories</p>
+        <p id="search">Search</p>
+        <p id="inbox">Inbox</p>
+        <p id="categories">Categories</p>
     </div>
     <div class="content">
-        <div class="form">
-            <input type="text" placeholder="Fix the windows tomorrow at 3pm (your title)" class="task-title" />
-            <textarea name="textarea" id="textarea" placeholder="Description"></textarea>
+        <form class="form">
+            <input type="text" placeholder="Fix the windows tomorrow at 3pm (your title)" class="task-title" required/>
+            <textarea name="textarea" id="textarea" placeholder="Description">test</textarea>
             <div class="informations">
                 <div class="priority-checkbox">
                     <label for="priority">Priority</label>
@@ -29,17 +29,22 @@
                 </div>
                 <button id="submit-button">Submit</button>
             </div>
+        </form>
+
+        <div class="books" data-id="0absolute">
+            <p class="task-title">Fix the windows tomorrow at 3pm</p>
+            <button class="expand-button">Expand</button>
+
+            <div class="book-details hidden">
+                <p class="task-description">This is just a description...</p>
+                <p class="task-date">📅 2025-07-08</p>
+                <p class="task-priority">🔥 Important</p>
+            </div>
         </div>
 
-        <div class="book0" id="books">
-            <p>Fix the windows tomorrow at 3pm</p>
-            <button>Expand</button>
-        </div>
 
-        
-        
 
-         
+
 
     </div>
 </body>

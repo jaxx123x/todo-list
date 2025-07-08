@@ -60,13 +60,14 @@ header {
     gap: 15px;
 }
 
-.form, #books {
+.form, .books {
     border: 1px solid #696565;  
   border-radius: 8px;
   padding: 16px;
   width: 50%;
   font-family: sans-serif;
 }
+
 
 .task-title, #textarea {
     background: none;
@@ -127,17 +128,26 @@ button:active {
   transition: 200ms;
 }
 
-#books {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.books {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 10px;
 }
 
-#books p {
-  justify-self: start;
-  align-self: center;
+.book-details {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 10px;
+  font-size: 13px;
 }
 
-#books button {
+.hidden {
+  display: none;
+}
+
+.expand-button {
   justify-self: end;
-  align-self: center;
 }
