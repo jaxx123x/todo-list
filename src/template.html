@@ -13,12 +13,27 @@
     <div class="side-bar">
         <p id="search">Search</p>
         <p id="inbox">Inbox</p>
-        <p id="categories">Categories</p>
+        <p id="add-category">Add a category</p>
+        <div class="catgs">
+            <p id="categories">Categories</p>
+            <p>⬇️</p>
+        </div>
     </div>
     <div class="content">
+
+        <div id="toast">Task added successfully!</div>
+
+        <div class="popup-overlay">
+            <form class="popup-form">
+                <div id="close-popup">❌</div>
+                <textarea name="popup-text" id="popup-text" placeholder="Enter your category name" required></textarea>
+                <button id="category-submit">Submit</button>
+            </form>
+        </div>
+
         <form class="form">
-            <input type="text" placeholder="Fix the windows tomorrow at 3pm (your title)" class="task-title" required/>
-            <textarea name="textarea" id="textarea" placeholder="Description">test</textarea>
+            <input type="text" placeholder="Fix the windows tomorrow at 3pm (your title)" class="task-title" required />
+            <textarea name="textarea" id="textarea" placeholder="Description"></textarea>
             <div class="informations">
                 <div class="priority-checkbox">
                     <label for="priority">Priority</label>
@@ -27,20 +42,19 @@
                 <div class="date-checkbox"><label for="date">📅 Untill:</label>
                     <input type="date" id="date" name="date">
                 </div>
+                <div class="category-select">
+                    <label for="category">📂 Category:</label>
+                    <select id="category" name="category">
+                    <option value="none" class="userOption">None</option>
+                    
+                        
+                    </select>
+                </div>
                 <button id="submit-button">Submit</button>
             </div>
         </form>
 
-        <div class="books" data-id="0absolute">
-            <p class="task-title">Fix the windows tomorrow at 3pm</p>
-            <button class="expand-button">Expand</button>
 
-            <div class="book-details hidden">
-                <p class="task-description">This is just a description...</p>
-                <p class="task-date">📅 2025-07-08</p>
-                <p class="task-priority">🔥 Important</p>
-            </div>
-        </div>
 
 
 
