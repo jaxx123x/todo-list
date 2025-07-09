@@ -4,7 +4,6 @@ import { indexListArray } from "./script.js";
 
 export const DOM = (() => {
     //form & sidebar selectors
-    const search = document.querySelector("#search");
     const inbox = document.querySelector("#inbox");
     const categories = document.querySelector("#categories");
     const submit = document.querySelector("#submit-button");
@@ -21,13 +20,13 @@ export const DOM = (() => {
     const closePopUp = document.querySelector("#close-popup");
     const catSubmit = document.querySelector("#category-submit");
     const categoryName = document.querySelector("#popup-text");
-    const selectCategory = document.querySelector(".category-select");
+    const selectCategory = document.querySelector("#category");
 
     //general html selectors
     const content = document.querySelector(".content");
     const toast = document.querySelector("#toast");
 
-    return { search, inbox, categories, submit, taskTitle, taskDescription, taskPriority, taskDate, content, form, toast, addCategory, closePopUp, catSubmit, categoryName, popupOverlay, catgs, selectCategory};
+    return {inbox, categories, submit, taskTitle, taskDescription, taskPriority, taskDate, content, form, toast, addCategory, closePopUp, catSubmit, categoryName, popupOverlay, catgs, selectCategory};
 
 })();
 
@@ -52,7 +51,7 @@ export function submitFunction() { //handler function for domToArrayTask() and d
 //this function take form datas, creates a new object with it and updates indexListArray;
 function domToArrayTask() {
 
-    const newTask = new indexList(DOM.taskTitle.value, DOM.taskDescription.value, DOM.taskDate.value, DOM.taskPriority.checked);
+    const newTask = new indexList(DOM.taskTitle.value, DOM.taskDescription.value, DOM.taskDate.value, DOM.taskPriority.checked, DOM.selectCategory.value);
     newTask.pushIn();
     console.log(indexListArray);
     return newTask;
@@ -165,14 +164,15 @@ export function createCategoryDom() {
 
     DOM.catSubmit.addEventListener("click", (e) => {
         if (DOM.categoryName.value.trim() === "" || DOM.categoryName.value.trim().length > 10 ) {
-            alert('Cattegory name cannot be empty and cannot be longer than 10 words');
+            alert('Cattegory name cannot be empty and cannot be longer than 10 letters');
             return;
         }
         else {
             event.preventDefault();
             const id = DOM.categoryName.value.trim().replace(/\s+/g, '-');
             const newCat = document.createElement('p');
-            newCat.classList.add(id);
+            newCat.id = id;
+            newCat.classList.add("user-option");
             newCat.textContent = DOM.categoryName.value;
             DOM.catgs.appendChild(newCat);
             DOM.categoryName.value = "";
@@ -190,5 +190,29 @@ export function createCategoryDom() {
         
         
 
+    })
+}   
+
+export function toggleCategories() {
+    DOM.catgs.addEventListener("click", (event) => {
+        if(event.target.classList.contains("user-option")) {
+            const clickedCategory = event.target.id;
+
+            document.querySelectorAll(".books").forEach(el => el.remove());
+
+            indexListArray.forEach(element => {
+                if(element.category === clickedCategory) {
+                domToContentTask(element); }
+            });
+        }
+    })
+}
+
+export function toggleAllLists() {
+    DOM.inbox.addEventListener("click", () => {
+        document.querySelectorAll(".books").forEach(el => el.remove());
+        indexListArray.forEach(element => {
+            domToContentTask(element);
+        });
     })
 }
