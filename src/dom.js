@@ -44,6 +44,8 @@ export function submitFunction() { //handler function for domToArrayTask() and d
         toast();
 
         DOM.form.reset();
+
+        saveToLocalStorage();
     })
 }
 
@@ -146,6 +148,7 @@ export function deleteTask() {
             indexListArray.splice(index, 1);
             console.log(indexListArray);
             
+             saveToLocalStorage();
         }
     })
 }
@@ -215,4 +218,25 @@ export function toggleAllLists() {
             domToContentTask(element);
         });
     })
+}
+
+function saveToLocalStorage() {
+    localStorage.setItem("tasks", JSON.stringify(indexListArray));
+}
+
+export function domLocalStorage() {
+    const saved = JSON.parse(localStorage.getItem("tasks")) || [];
+    saved.forEach(task => {
+        const restored = new indexList(
+            task.title,
+            task.description,
+            task.priority,
+            task.date,
+            task.category
+        );
+        restored.id = task.id;
+
+        indexListArray.push(restored);
+        domToContentTask(restored);
+    });
 }
