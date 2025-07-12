@@ -1,6 +1,8 @@
 
 import { indexList } from "./script.js";
 import { indexListArray } from "./script.js";
+import { indexCatgs } from "./script.js";
+import { indexListCatgs } from "./script.js";
 
 export const DOM = (() => {
     //form & sidebar selectors
@@ -22,11 +24,12 @@ export const DOM = (() => {
     const categoryName = document.querySelector("#popup-text");
     const selectCategory = document.querySelector("#category");
 
+
     //general html selectors
     const content = document.querySelector(".content");
     const toast = document.querySelector("#toast");
 
-    return {inbox, categories, submit, taskTitle, taskDescription, taskPriority, taskDate, content, form, toast, addCategory, closePopUp, catSubmit, categoryName, popupOverlay, catgs, selectCategory};
+    return { inbox, categories, submit, taskTitle, taskDescription, taskPriority, taskDate, content, form, toast, addCategory, closePopUp, catSubmit, categoryName, popupOverlay, catgs, selectCategory };
 
 })();
 
@@ -134,21 +137,21 @@ export function expandTask() {
 
         }
     })
-}   
+}
 
 export function deleteTask() {
     DOM.content.addEventListener("click", (event) => {
 
-        if(event.target.classList.contains("delete-button")) {
+        if (event.target.classList.contains("delete-button")) {
             const parent = event.target.closest(".books");
             const id = parent.dataset.id;
             parent.remove();
-            
+
             const index = indexListArray.findIndex(task => task.id == id);
             indexListArray.splice(index, 1);
             console.log(indexListArray);
-            
-             saveToLocalStorage();
+
+            saveToLocalStorage();
         }
     })
 }
@@ -166,12 +169,16 @@ export function createCategoryDom() {
     })
 
     DOM.catSubmit.addEventListener("click", (e) => {
-        if (DOM.categoryName.value.trim() === "" || DOM.categoryName.value.trim().length > 10 ) {
+        if (DOM.categoryName.value.trim() === "" || DOM.categoryName.value.trim().length > 10) {
             alert('Cattegory name cannot be empty and cannot be longer than 10 letters');
             return;
         }
         else {
             event.preventDefault();
+            const category = new indexCatgs(DOM.categoryName.value);
+            category.pushIn();
+
+            saveToLocalStorage();
             const id = DOM.categoryName.value.trim().replace(/\s+/g, '-');
             const newCat = document.createElement('p');
             newCat.id = id;
@@ -181,7 +188,7 @@ export function createCategoryDom() {
             DOM.categoryName.value = "";
             DOM.popupOverlay.style.visibility = "hidden";
 
-            
+
 
             const option = document.createElement("option");
             option.value = id;
@@ -189,23 +196,25 @@ export function createCategoryDom() {
             DOM.selectCategory.appendChild(option);
 
             
+            
         }
-        
-        
+
+
 
     })
-}   
+}
 
 export function toggleCategories() {
     DOM.catgs.addEventListener("click", (event) => {
-        if(event.target.classList.contains("user-option")) {
+        if (event.target.classList.contains("user-option")) {
             const clickedCategory = event.target.id;
 
             document.querySelectorAll(".books").forEach(el => el.remove());
 
             indexListArray.forEach(element => {
-                if(element.category === clickedCategory) {
-                domToContentTask(element); }
+                if (element.category === clickedCategory) {
+                    domToContentTask(element);
+                }
             });
         }
     })
@@ -222,6 +231,7 @@ export function toggleAllLists() {
 
 function saveToLocalStorage() {
     localStorage.setItem("tasks", JSON.stringify(indexListArray));
+    localStorage.setItem("catgs", JSON.stringify(indexListCatgs));
 }
 
 export function domLocalStorage() {
@@ -230,8 +240,8 @@ export function domLocalStorage() {
         const restored = new indexList(
             task.title,
             task.description,
-            task.priority,
             task.date,
+            task.priority,
             task.category
         );
         restored.id = task.id;
@@ -239,4 +249,25 @@ export function domLocalStorage() {
         indexListArray.push(restored);
         domToContentTask(restored);
     });
+
+    const savedCatgs = JSON.parse(localStorage.getItem("catgs")) || [];
+    savedCatgs.forEach(cat => {
+        const restored = new indexCatgs(cat.name);
+
+        const id = cat.name.trim().replace(/\s+/g, '-');
+        indexListCatgs.push(restored);
+
+        const newCat = document.createElement('p');
+        newCat.id = id;
+        newCat.classList.add("user-option");
+        newCat.textContent = id;
+
+        const option = document.createElement("option");
+        option.value = id;
+        option.textContent = id;
+        DOM.selectCategory.appendChild(option);
+
+        DOM.catgs.appendChild(newCat);
+
+    })
 }
